@@ -78,11 +78,7 @@ export default {
             },
           }
         )
-        .then((response) =>
-          ["request"]["status"](
-            (this.stat = { resp: response["data"]["success"] })
-          )
-        )
+        .then(() => this.$router.push({ name: "login", path: "/login" }))
         .catch(
           (err) =>
             (this.stat = {
