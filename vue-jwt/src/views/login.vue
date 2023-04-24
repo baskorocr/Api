@@ -50,13 +50,13 @@ export default {
             },
           }
         )
-        .then(
-          (response) =>
-            localStorage.setItem("token", response["data"]["token"]),
-          this.$router.push({ name: "dashboard", path: "/dashboard" })
-        )
-        .catch((error) => {
-          console.log(error);
+        .then((response) => {
+          if (response["status"] == 200) {
+            localStorage.setItem("token", response["data"]["token"]);
+            setTimeout(() => {
+              this.$router.push({ name: "dashboard", path: "/dashboard" });
+            }, 800);
+          }
         });
     },
   },

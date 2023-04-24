@@ -6,14 +6,21 @@
 
 <script>
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 export default {
   name: "dashboard",
   mounted() {
-    const token = localStorage.getItem("token");
-    axios.defaults.headers.common["Authorization"] = "Bearer" + token;
-    const d = jwt.verify("token", token);
-    console.log(d);
-    const t = axios.get("http://localhost:8000/api/v1/users/" + { $id });
+    let token = localStorage.getItem("token");
+    if (token == null) {
+      this.$router.push({ name: "login", path: "/login" });
+    } else {
+      axios.defaults.headers.common["Authorization"] = "Bearer" + token;
+      var decoded = jwt_decode(token);
+      let user = decoded["sub"];
+      console.log(decoded);
+      const t = axios.get("http://localhost:8000/api/v1/users/" + user);
+      console.log(t);
+    }
   },
 };
 </script>
