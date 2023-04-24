@@ -2,13 +2,13 @@
   <div id="login">
     <h1>Login</h1>
     <div class="form-inputs">
-      <label for="username">Username</label>
+      <label for="email">email</label>
       <input
         type="text"
-        id="username"
-        name="username"
-        v-model="input.username"
-        placeholder="Username"
+        id="email"
+        name="email"
+        v-model="input.email"
+        placeholder="Email address"
       />
     </div>
     <div class="form-inputs">
@@ -26,28 +26,38 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Login",
   data() {
     return {
       input: {
-        username: "",
+        email: "",
         password: "",
-      },
-      data: {
-        username: "admin",
       },
     };
   },
   methods: {
     login() {
-      this.name = "admin";
-      this.password = "admin";
-      if (this.input.username == this.data.username) {
-        console.log("ini akun");
-      } else {
-        console.log("ini bukan akun");
-      }
+      axios
+        .post(
+          "http://127.0.0.1:8000/api/login",
+          {},
+          {
+            params: {
+              email: this.input.email,
+              password: this.input.password,
+            },
+          }
+        )
+        .then(
+          (response) =>
+            localStorage.setItem("token", response["data"]["token"]),
+          this.$router.push({ name: "dashboard", path: "/dashboard" })
+        )
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
