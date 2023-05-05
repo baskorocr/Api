@@ -10,14 +10,14 @@ import jwt_decode from "jwt-decode";
 export default {
   name: "dashboard",
   mounted() {
-    let token = localStorage.getItem("token");
+    let token = JSON.parse(localStorage.getItem("user"));
     if (token == null) {
       this.$router.push({ name: "login", path: "/login" });
     } else {
-      axios.defaults.headers.common["Authorization"] = "Bearer" + token;
-      var decoded = jwt_decode(token);
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer" + token["token"];
+      var decoded = jwt_decode(token["token"]);
       let user = decoded["sub"];
-      console.log(decoded);
       const t = axios.get("http://localhost:8000/api/v1/users/" + user);
       console.log(t);
     }

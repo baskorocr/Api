@@ -59,6 +59,7 @@ export default {
         email: "",
         password: "",
         PasswordConfirmation: "",
+        status: "2",
       },
       stat: {},
     };
@@ -75,6 +76,7 @@ export default {
               email: this.input.email,
               password: this.input.password,
               password_confirmation: this.input.passwordConfirmation,
+              status: this.input.status,
             },
           }
         )
