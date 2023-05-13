@@ -65,7 +65,6 @@ export default {
           if (response["status"] === 200) {
             const status = response["data"]["user"]["status"];
             const token = response["data"]["token"];
-            console.log(token);
             const data = { status: status, token: token };
             app.$store.state.isLoggedIn = true;
             window.localStorage.setItem("user", JSON.stringify(data));

@@ -28,10 +28,17 @@ export default {
         "Bearer" + token["token"];
       axios
         .get("http://127.0.0.1:8000/api/logout")
-        .then(localStorage.removeItem("user"), this.$router.push("/login"))
+        .then(
+          localStorage.removeItem("user"),
+          (this.$store.state.isLoggedIn = false)
+        )
         .catch((err) => {
           console.log(err);
         });
+
+      if (this.$store.state.isLoggedIn == false) {
+        this.$router.push("/login");
+      }
     },
   },
 };

@@ -44,7 +44,7 @@
         placeholder="Password-confirmation"
       />
     </div>
-    <button type="button" v-on:click="login()">Login</button>
+    <button type="button" v-on:click="regist()">Login</button>
   </div>
 </template>
 
@@ -64,8 +64,18 @@ export default {
       stat: {},
     };
   },
+  mounted() {
+    if (this.$store.state.isLoggedIn) {
+      const authUser = JSON.parse(window.localStorage.getItem("user"));
+      if (authUser.status === 2) {
+        this.$router.push("/dashboard");
+      } else if (authUser.status === 1) {
+        this.$router.push("/admin");
+      }
+    }
+  },
   methods: {
-    login() {
+    regist() {
       axios
         .post(
           "http://127.0.0.1:8000/api/register",

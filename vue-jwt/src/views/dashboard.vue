@@ -19,7 +19,6 @@ export default {
       var decoded = jwt_decode(token["token"]);
       let user = decoded["sub"];
       const t = axios.get("http://localhost:8000/api/v1/users/" + user);
-      console.log(t);
     }
   },
 };
